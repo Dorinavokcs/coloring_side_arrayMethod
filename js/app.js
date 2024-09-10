@@ -51,6 +51,7 @@ const renderBoxes = () => {
 
 document.addEventListener("DOMContentLoaded", ()=>/*ez a nyilacska egy olyan rövidítés a function()-nak de nem úgy fog menni hogy ()function hanem function()*/{
     renderBoxes()
+    coloring()
     const boxes = document.querySelectorAll(".box")
     console.log("Boxlista3",boxes);
 });
@@ -81,10 +82,37 @@ const randomNumber = () =>{
     return Math.floor (Math.random()*256);                                             
 }
 //5.Számoknól színt készíteni
-const createColor = () =>{
+const createRGBColor = () =>{
     const r = randomNumber();
     const g = randomNumber();
     const b = randomNumber();
     return[r, g, b]
+}
+//Színezés végrehajtása:
+const coloringBox = ()=>{
+    const boxes = document.querySelector(".box");
+}
+
+function sendErrorMessage(){
+    alert("nem jo")
+}
+function clearInput(){
+    const inputElement = document.querySelector("#num");
+    inputElement.textContent = "";
+    inputElement.focus();
+}
+//Színező gomb müködtetése:
+const coloring  = () =>{
+    const button = document.querySelector(".card button:nth-child(3)");
+    button.addEventListener("click", coloringBox)
+    const [isValid, number] = checkValue();
+    if(!isValid){
+        sendErrorMessage();
+        return;
+    }
+    const boxes = document.querySelectorAll(".box");
+    const box = Array.from(boxes).find( b =>Number(b.id) === number);
+    const [r,g,b] = createRGBColor();
+    box.style.backgroundColor=`rgb(${r},${g},${b})`
 }
 //6. 3. feladat színező eljárásában alkalmazni ezt a színt
