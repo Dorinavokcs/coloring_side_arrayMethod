@@ -27,7 +27,7 @@ const makeBoxes =() => {
         {number: 14},
         {number: 15}
     ];
-    const content = data.map(({number}) => `div id="${number}" class="box">${number}</div>`);
+    const content = data.map(({number}) => `<div id="${number}" class="box">${number}</div>`);
     return content;
 }
 
@@ -57,8 +57,34 @@ document.addEventListener("DOMContentLoaded", ()=>/*ez a nyilacska egy olyan rö
 
 //Tennivalók:
 //1.Kivenni az input mező értékét
+const getInputValue = function() {
+    return document.querySelector("#num").ariaValueMax;
+}
 //2.Megfelelő-e az érték (nem üres, nem string, 1 és 15 között van)
+const checkValue = () =>{
+    const value = getInputValue();
+    if (!value.trim()){
+        return [false,0];
+    }
+    if(isNaN(value)){  //TODO
+        return[false, 0];
+    }
+    const currentValue = Number(value)
+    if(currentValue <1 || currentValue >15){
+        return [false, 0];
+    }
+    return [true, currentValue];
+}
 //3.A színező gombra eseményfigyelőt helyezni - színező callback-eljárás
 //4.Véletlen szám-generátor
+const randomNumber = () =>{
+    return Math.floor (Math.random()*256);                                             
+}
 //5.Számoknól színt készíteni
+const createColor = () =>{
+    const r = randomNumber();
+    const g = randomNumber();
+    const b = randomNumber();
+    return[r, g, b]
+}
 //6. 3. feladat színező eljárásában alkalmazni ezt a színt
